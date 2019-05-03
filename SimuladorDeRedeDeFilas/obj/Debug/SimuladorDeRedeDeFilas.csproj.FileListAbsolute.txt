@@ -1,0 +1,9 @@
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\bin\Debug\SimuladorDeRedeDeFilas.exe.config
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\bin\Debug\SimuladorDeRedeDeFilas.exe
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\bin\Debug\SimuladorDeRedeDeFilas.pdb
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csprojResolveAssemblyReference.cache
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.Main.resources
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.Properties.Resources.resources
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csproj.GenerateResource.Cache
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.exe
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.pdb

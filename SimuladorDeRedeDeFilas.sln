@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorDeRedeDeFilas", "SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas.csproj", "{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6E330C59-66BA-417E-9097-1AFEF2332B72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24E767B0-F0B6-4BD1-B54B-F4D228444FA5}"
+	ProjectSection(SolutionItems) = preProject
+		Enunciado.pdf = Enunciado.pdf
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E330C59-66BA-417E-9097-1AFEF2332B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E330C59-66BA-417E-9097-1AFEF2332B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E330C59-66BA-417E-9097-1AFEF2332B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E330C59-66BA-417E-9097-1AFEF2332B72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
