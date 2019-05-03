@@ -1,0 +1,7 @@
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\UnitTests.dll
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\UnitTests.pdb
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.dll
+C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.pdb
