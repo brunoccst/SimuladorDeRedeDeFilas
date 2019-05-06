@@ -8,26 +8,46 @@ namespace SimuladorDeRedeDeFilas.Geradores
 {
     public class GeradorCongruenteLinear
     {
-        /// <summary>
-        /// Gera um array de números aleatórios.
-        /// </summary>
-        /// <param name="a">O multiplicador.</param>
-        /// <param name="c">Constnate usada para uma maior variação de números gerados.</param>
-        /// <param name="M">O número máximo a ser gerado.</param>
-        /// <param name="x0">A semente e primeiro valor.</param>
-        /// <param name="length">A quantidade de números a serem gerados.</param>
-        /// <returns>Um array com os números aleatórios gerados, sendo <paramref name="x0"/> o primeiro.</returns>
-        public double[] Gerar(int a, int c, int M, double x0, int length)
+        public int A { get; set; }
+        public int C { get; set; }
+        public int M { get; set; }
+        public long Semente { get; set; }
+        public double NumeroAleatorio { get; set; }
+
+        public GeradorCongruenteLinear(int a, int c) : this(a, c, int.MaxValue) { }
+
+        public GeradorCongruenteLinear(int a, int c, int m)
         {
-            double[] x = new double[length];
+            A = a;
+            C = c;
+            M = m;
+        }
+        
+        public void ConfiguraSemente()
+        {
+            var agora = DateTime.Now;
+            var dataBase = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var unixDateTime = (agora.ToUniversalTime() - dataBase).TotalMilliseconds;
 
-            x[0] = x0;
-            for (int i = 1; i < length; i++)
-            {
-                x[i] = (a * x[i - 1] + c) % M;
-            }
+            ConfiguraSemente((long)unixDateTime);
+        }
 
-            return x;
+        public void ConfiguraSemente(long semente)
+        {
+            Semente = semente;
+        }
+
+        public double Gera()
+        {
+            Semente = (A * Semente + C) % M;
+            NumeroAleatorio = (double)Semente/ M;
+            return NumeroAleatorio;
+        }
+
+        public double Gera(double min, double max)
+        {
+            Gera();
+            return (max - min) * NumeroAleatorio + min;
         }
     }
 }

@@ -11,15 +11,22 @@ namespace SimuladorDeRedeDeFilas.Modelos
     /// </summary>
     public class Fila
     {
+        public const double PROBABILIDADE_MAXIMA = 1.0;
+        public const double NAO_TEM_CHEGADAS_EXTERNAS = -1.0;
+
+        public string Nome { get; set; }
+
+        public double PrimeiraChegada { get; set; }
+
         /// <summary>
         /// Tempo de chegada.
         /// </summary>
-        public Tempo Chegada { get; private set; }
+        public Intervalo Chegada { get; private set; }
 
         /// <summary>
         /// Tempo de atendimento.
         /// </summary>
-        public Tempo Atendimento { get; private set; }
+        public Intervalo Atendimento { get; private set; }
 
         /// <summary>
         /// Número de servidores (x).
@@ -31,20 +38,46 @@ namespace SimuladorDeRedeDeFilas.Modelos
         /// </summary>
         public int Capacidade { get; private set; }
 
-        /// <summary>
-        /// Quantidade de clientes na fila (z).
-        /// </summary>
-        public int QuantidadeDeClientes { get; set; }
+        public List<string> Filas { get; set; }
 
-        /// <summary>
-        /// Cria uma nova instancia com zero clientes na fila.
-        /// </summary>
-        /// <param name="tChegada">Tempo de chegada.</param>
-        /// <param name="tAtendimento">Tempo de atendimento.</param>
-        /// <param name="servidores">Número de servidores.</param>
-        /// <param name="capacidade">Capacidade de clientes.</param>
-        public Fila(Tempo tChegada, Tempo tAtendimento, int servidores, int capacidade)
+        public List<double> Probabilidades { get; set; }
+
+        public double SomaDasProbabilidades
         {
+            get
+            {
+                return Probabilidades.Sum();
+            }
+        }
+
+        public int PosicaoNoArray { get; set; }
+
+        public int TamanhoAtual { get; set; }
+
+        public int PerdaDeClientes { get; set; }
+
+        public bool TemEspaco
+        {
+            get
+            {
+                return TamanhoAtual < Capacidade;
+            }
+        }
+
+        public bool TemServidorSobrando
+        {
+            get
+            {
+                return TamanhoAtual < Servidores;
+            }
+        }
+
+        public Fila(string nome, int servidores, int capacidade, Intervalo tAtendimento)
+            : this(nome, servidores, capacidade, null, tAtendimento) { }
+
+        public Fila(string nome, int servidores, int capacidade, Intervalo tChegada, Intervalo tAtendimento)
+        {
+            Nome = nome;
             Chegada = tChegada;
             Atendimento = tAtendimento;
 
@@ -58,15 +91,72 @@ namespace SimuladorDeRedeDeFilas.Modelos
             else
                 Capacidade = capacidade;
 
-            QuantidadeDeClientes = 0;
+            Filas = new List<string>();
+            Probabilidades = new List<double>();
+            PrimeiraChegada = NAO_TEM_CHEGADAS_EXTERNAS;
+
+            if (tChegada == null)
+            {
+                tChegada = new Intervalo(NAO_TEM_CHEGADAS_EXTERNAS, NAO_TEM_CHEGADAS_EXTERNAS);
+            }
+        }
+
+        public bool AdicionaDestino(string fila, double probabilidade)
+        {
+            // Só pode adicionar o destino se a probabilidade não ultrapassar a probabilidade máxima.
+            if (SomaDasProbabilidades + probabilidade > PROBABILIDADE_MAXIMA)
+            {
+                return false;
+            }
+            else
+            {
+                Filas.Add(fila);
+                Probabilidades.Add(probabilidade);
+                return true;
+            }
+        }
+
+        public string PegaDestino(double numeroAleatorio)
+        {
+            double probabilidade = 0.0;
+            string fila = null;
+
+            for (int i = 0; i < Probabilidades.Count; i++)
+            {
+                probabilidade += Probabilidades[i];
+                if (numeroAleatorio <= probabilidade)
+                {
+                    fila = Filas[i];
+                    break;
+                }
+            }
+
+            return fila;
         }
 
         public override string ToString()
         {
-            string msg = "Simulador.Modelos.Fila [{0}={1};{2}={3};{4}={5};{6}={7};{8}={9}]";
-            msg = string.Format(msg, nameof(Chegada), Chegada.ToString(), nameof(Atendimento), Atendimento.ToString(),
-                nameof(Servidores), Servidores, nameof(Capacidade), Capacidade, nameof(QuantidadeDeClientes), QuantidadeDeClientes);
-            return msg;
+            // Coloca todas as propriedades do objeto no formato especificado.
+            string formatoDePropriedade = "{0}={1}";
+            List<string> propriedades = new List<string>();
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Nome), Nome));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(PrimeiraChegada), PrimeiraChegada));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Chegada), Chegada.ToString()));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Atendimento), Atendimento.ToString()));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Servidores), Servidores));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Capacidade), Capacidade));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Filas), string.Join(",", Filas)));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Probabilidades), string.Join(",", Probabilidades)));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(SomaDasProbabilidades), SomaDasProbabilidades));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(PosicaoNoArray), PosicaoNoArray));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(TamanhoAtual), TamanhoAtual));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(PerdaDeClientes), PerdaDeClientes));
+
+            // Gera a representação em string final com as propriedades.
+            string propriedadesStr = string.Join(";", propriedades);
+            string resultado = string.Format("Fila [{0}]", propriedadesStr);
+
+            return resultado;
         }
     }
 }

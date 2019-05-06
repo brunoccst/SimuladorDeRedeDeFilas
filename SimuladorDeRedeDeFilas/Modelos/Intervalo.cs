@@ -9,17 +9,17 @@ namespace SimuladorDeRedeDeFilas.Modelos
     /// <summary>
     /// Intervalo de tempo mínimo e máximo.
     /// </summary>
-    public class Tempo
+    public class Intervalo
     {
         /// <summary>
         /// Tempo mínimo do intervalo.
         /// </summary>
-        public int Minimo { get; private set; }
+        public double Minimo { get; private set; }
 
         /// <summary>
         /// Tempo máximo do intervalo.
         /// </summary>
-        public int Maximo { get; private set; }
+        public double Maximo { get; private set; }
 
         /// <summary>
         /// Cria uma nova instancia.
@@ -27,7 +27,7 @@ namespace SimuladorDeRedeDeFilas.Modelos
         /// <param name="minimo">Tempo mínimo do intervalo.</param>
         /// <param name="maximo">Tempo máximo do intervalo.</param>
         /// <exception cref="ArgumentException">Se o tempo mínimo for maior que o máximo, ou se um dos dois parâmetros for menor que zero.</exception>
-        public Tempo(int minimo, int maximo)
+        public Intervalo(double minimo, double maximo)
         {
             if (minimo > maximo)
                 throw new ArgumentException("O tempo mínimo deve ser menor ou igual ao tempo máximo.", nameof(minimo));
@@ -42,11 +42,23 @@ namespace SimuladorDeRedeDeFilas.Modelos
             Maximo = maximo;
         }
 
+        /// <summary>
+        /// Apresenta o objeto como uma string.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            string msg = "Simulador.Modelos.Tempo [{0}={1};{2}={3}]";
-            msg = string.Format(msg, nameof(Minimo), Minimo, nameof(Maximo), Maximo);
-            return msg;
+            // Coloca todas as propriedades do objeto no formato especificado.
+            string formatoDePropriedade = "{0}={1}";
+            List<string> propriedades = new List<string>();
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Minimo), Minimo));
+            propriedades.Add(string.Format(formatoDePropriedade, nameof(Maximo), Maximo));
+
+            // Gera a representação em string final com as propriedades.
+            string propriedadesStr = string.Join(";", propriedades);
+            string resultado = string.Format("Intervalo [{0}]", propriedadesStr);
+
+            return resultado;
         }
     }
 }
