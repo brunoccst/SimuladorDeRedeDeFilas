@@ -47,21 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Geradores\GeradorCongruenteLinear.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modelos\Evento.cs" />
     <Compile Include="Modelos\Fila.cs" />
     <Compile Include="Modelos\Simulador.cs" />
-    <Compile Include="Modelos\Tempo.cs" />
+    <Compile Include="Modelos\Intervalo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

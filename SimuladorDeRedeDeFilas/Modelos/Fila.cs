@@ -141,8 +141,10 @@ namespace SimuladorDeRedeDeFilas.Modelos
             List<string> propriedades = new List<string>();
             propriedades.Add(string.Format(formatoDePropriedade, nameof(Nome), Nome));
             propriedades.Add(string.Format(formatoDePropriedade, nameof(PrimeiraChegada), PrimeiraChegada));
-            propriedades.Add(string.Format(formatoDePropriedade, nameof(Chegada), Chegada.ToString()));
-            propriedades.Add(string.Format(formatoDePropriedade, nameof(Atendimento), Atendimento.ToString()));
+            if (Chegada != null)
+                propriedades.Add(string.Format(formatoDePropriedade, nameof(Chegada), Chegada.ToString()));
+            if (Atendimento != null)
+                propriedades.Add(string.Format(formatoDePropriedade, nameof(Atendimento), Atendimento.ToString()));
             propriedades.Add(string.Format(formatoDePropriedade, nameof(Servidores), Servidores));
             propriedades.Add(string.Format(formatoDePropriedade, nameof(Capacidade), Capacidade));
             propriedades.Add(string.Format(formatoDePropriedade, nameof(Filas), string.Join(",", Filas)));

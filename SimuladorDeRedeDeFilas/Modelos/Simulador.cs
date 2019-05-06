@@ -122,6 +122,31 @@ namespace SimuladorDeRedeDeFilas.Modelos
 
                 executa(filas, execucoes, tempos, eventos);
             }
+
+            for (int i = 0; i < execucoes.Count; i++)
+            {
+                double[] execucao = execucoes[i];
+
+                for (int j = 0; j < execucao.Count(); j++)
+                {
+                    execucao[j] /= EXECUCOES;
+                }
+
+                Fila fila = filas[i];
+                Console.WriteLine("--");
+                Console.WriteLine(fila.ToString());
+
+                for (int k = 0; k < fila.Capacidade; k++)
+                {
+                    Console.WriteLine("MEDIA DE TEMPO PARA FILA: " + execucao[k]);
+                    if (execucao[k] == 0.0)
+                        break;
+                }
+            }
+
+            double[] primeiraExec = execucoes.First();
+            double media = primeiraExec[primeiraExec.Count() - 2];
+            Console.WriteLine("Média do tempo total de execução: " + media);
         }
 
         private void atualizaOsTempos(List<Fila> filas, List<double[]> tempos, Evento proximoEvento)
@@ -168,8 +193,9 @@ namespace SimuladorDeRedeDeFilas.Modelos
                                 }
                                 else
                                 {
-                                    // TODO: Implementar a passagem.
-                                    //events.add(new Event(EventType.PASSAGE, time, eventQueue, getQueueByName(queues, destiny)));
+                                    Fila filaDestino = filas.First(x => x.Nome == destino);
+                                    Evento evt1 = new Evento(TipoDeEvento.PASSAGEM, tempo1, filaDoEvento, filaDestino);
+                                    eventos.Add(evt1);
                                 }
                             }
                         }
@@ -187,9 +213,82 @@ namespace SimuladorDeRedeDeFilas.Modelos
                         break;
 
                     case TipoDeEvento.SAIDA:
-                        // TODO: Implementar essa parte. (linha 126)
+                        filaDoEvento.TamanhoAtual--;
+
+                        if (filaDoEvento.TemServidorSobrando)
+                        {
+                            double numeroAleatorio = gerador.Gera();
+                            string destino = filaDoEvento.PegaDestino(numeroAleatorio);
+
+                            double numeroAleatorioComMinMax = gerador.Gera(filaDoEvento.Atendimento.Minimo, filaDoEvento.Atendimento.Maximo);
+                            double tempo1 = arrayDeTemposDaFila[filaDoEvento.Capacidade + 1] + numeroAleatorioComMinMax;
+
+                            nrosAleatorios += 2;
+
+                            if (string.IsNullOrWhiteSpace(destino))
+                            {
+                                Evento evt1 = new Evento(TipoDeEvento.SAIDA, tempo1, filaDoEvento);
+                                eventos.Add(evt1);
+                            }
+                            else
+                            {
+                                Fila filaDestino = filas.First(x => x.Nome == destino);
+                                Evento evt1 = new Evento(TipoDeEvento.PASSAGEM, tempo1, filaDoEvento, filaDestino);
+                                eventos.Add(evt1);
+                            }
+                        }
+
+                        if (proximoEvento.Tipo == TipoDeEvento.PASSAGEM)
+                        {
+                            Fila filaDestino = proximoEvento.Destino;
+                            if (filaDestino.TemEspaco)
+                            {
+                                filaDestino.TamanhoAtual++;
+
+                                if (filaDestino.TemServidorSobrando)
+                                {
+                                    double[] temposDaFilaDestino = tempos[filaDestino.PosicaoNoArray];
+                                    double proximoAleatorio = gerador.Gera();
+                                    string destino = filaDestino.PegaDestino(proximoAleatorio);
+
+                                    int arrayDoTempo = filaDestino.Capacidade + 1;
+                                    proximoAleatorio = gerador.Gera(filaDestino.Atendimento.Minimo, filaDestino.Atendimento.Maximo);
+                                    double tempo = temposDaFilaDestino[arrayDoTempo] + proximoAleatorio;
+
+                                    nrosAleatorios += 2;
+
+                                    if (string.IsNullOrWhiteSpace(destino))
+                                    {
+                                        Evento evt1 = new Evento(TipoDeEvento.SAIDA, tempo, filaDoEvento);
+                                        eventos.Add(evt1);
+                                    }
+                                    else
+                                    {
+                                        filaDestino = filas.First(x => x.Nome == destino);
+                                        Evento evt1 = new Evento(TipoDeEvento.PASSAGEM, tempo, filaDoEvento, filaDestino);
+                                        eventos.Add(evt1);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                filaDestino.PerdaDeClientes++;
+                            }
+                        }
+
                         break;
                 }
+            }
+
+            for (int i = 0; i < execucoes.Count; i++)
+            {
+                double[] execucao = execucoes[i];
+                double[] tempo = tempos[i];
+                for (int j = 0; j < tempo.Count(); j++)
+                {
+                    execucao[j] += tempo[j];
+                }
+                execucao[execucao.Count() - 1] += filas[i].PerdaDeClientes;
             }
         }
 

@@ -17,9 +17,16 @@ namespace SimuladorDeRedeDeFilas.Modelos
         CHEGADA = 1,
 
         /// <summary>
+        /// Uma passagem de cliente de uma fila para outra.
+        /// </summary>
+        PASSAGEM = 2,
+
+        /// <summary>
         /// Uma saída de cliente.
         /// </summary>
-        SAIDA = 0
+        SAIDA = 0,
+
+        
     }
 
     /// <summary>
