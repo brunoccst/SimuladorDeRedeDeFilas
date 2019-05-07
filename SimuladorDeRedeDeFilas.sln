@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorDeRedeDeFilas", "SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas.csproj", "{857FD8D4-1B0F-4C11-A5A2-85B9CF31287B}"
 EndProject
@@ -12,6 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Enunciado.pdf = Enunciado.pdf
 		LICENSE = LICENSE
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exemplos", "Exemplos", "{60C32A9A-FF34-4B44-8ACD-6A59B90B7747}"
+	ProjectSection(SolutionItems) = preProject
+		Exemplos\EX_1.txt = Exemplos\EX_1.txt
 	EndProjectSection
 EndProject
 Global
@@ -31,5 +36,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60C32A9A-FF34-4B44-8ACD-6A59B90B7747} = {24E767B0-F0B6-4BD1-B54B-F4D228444FA5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48E396CA-93BD-4CC7-AB9C-88C5AFD2A5C5}
 	EndGlobalSection
 EndGlobal

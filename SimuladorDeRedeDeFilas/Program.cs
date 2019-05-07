@@ -1,226 +1,190 @@
-﻿using System;
+﻿using SimuladorDeRedeDeFilas.Modelos;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SimuladorDeRedeDeFilas
 {
-    static class Program
+    public class Program
     {
-        // TODO: Finalizar o metodo main.
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
         {
-            //ArrayList<Queue> queues = new ArrayList<>();
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-            //if (args.length != 1)
-            //{
-            //    System.out.println("\nEntrada invalida!");
-            //    System.out.println("\nUso conforme exemplo abaixo:");
-            //    System.out.println("java -jar simuladorDeFilas.jar seu_arquivo\n");
-            //    System.exit(0);
-            //}
+            List<Fila> filas = new List<Fila>();
 
-            //try (BufferedReader reader = Files.newBufferedReader(Paths.get(args[0]))) {
+            string caminho;
+            if (args.Length == 1)
+            {
+                caminho = args[0];
+            }
+            else
+            {
+                Console.WriteLine("Digite o caminho do arquivo desejado e pressione enter:");
+                caminho = Console.ReadLine();
+            }
 
-            //    while (reader.ready())
-            //    {
+            try
+            {
+                using (StreamReader leitor = new StreamReader(caminho))
+                {
+                    while (!leitor.EndOfStream)
+                    {
+                        string linha = leitor.ReadLine();
 
-            //        String line = reader.readLine();
+                        // TAMANHO_DA_FILA_INFINITA
+                        if (linha.StartsWith("TAMANHO_DA_FILA_INFINITA"))
+                        {
+                            string valor = leitor.ReadLine().Trim();
+                            Simulador.TAMANHO_DA_FILA_INFINITA = Convert.ToInt32(valor);
+                        }
+                        // FILAS
+                        else if (linha.StartsWith("FILAS"))
+                        {
+                            int posicaoNoArray = 0;
+                            while (true)
+                            {
+                                string[] valores = leitor.ReadLine().Split(' ');
 
-            //        // INFINITE_QUEUE_SIZE
-            //        if (line.startsWith("INFINITE_QUEUE_SIZE"))
-            //        {
-            //            String[] values = reader.readLine().split(" ");
-            //            Simulator.INFINITE_QUEUE_SIZE = Integer.parseInt(values[0]);
-            //        }
-            //        // QUEUES
-            //        else if (line.startsWith("QUEUES"))
-            //        {
-            //            int positionInArray = 0;
-            //            while (reader.ready())
-            //            {
-            //                String[] values = reader.readLine().split(" ");
+                                // Linha em branco, passar para proxima entrada
+                                if (valores.Length == 0 || "".Equals(valores[0]))
+                                {
+                                    break;
+                                }
+                                // Quatro valores, fila INFINITA que NAO possui entrada externa
+                                else if (valores.Length == 4)
+                                {
+                                    var tAtendimento = new Intervalo(double.Parse(valores[2]), double.Parse(valores[3]));
+                                    filas.Add(new Fila(valores[0], Convert.ToInt32(valores[1]), Simulador.TAMANHO_DA_FILA_INFINITA, tAtendimento));
+                                }
+                                // Cinco valores, fila que NAO possui entrada externa
+                                else if (valores.Length == 5)
+                                {
+                                    var tAtendimento = new Intervalo(double.Parse(valores[3]), double.Parse(valores[4]));
+                                    filas.Add(new Fila(valores[0], Convert.ToInt32(valores[1]), Convert.ToInt32(valores[2]), tAtendimento));
+                                }
+                                // Seis valores, fila INFINITA que possui entrada externa
+                                else if (valores.Length == 6)
+                                {
+                                    var tChegada = new Intervalo(double.Parse(valores[2]), double.Parse(valores[3]));
+                                    var tAtendimento = new Intervalo(double.Parse(valores[4]), double.Parse(valores[5]));
+                                    filas.Add(new Fila(valores[0], Convert.ToInt32(valores[1]), Simulador.TAMANHO_DA_FILA_INFINITA, tChegada, tAtendimento));
+                                }
+                                // Sete valores, fila que possui entrada externa
+                                else if (valores.Length == 7)
+                                {
+                                    var tChegada = new Intervalo(double.Parse(valores[3]), double.Parse(valores[4]));
+                                    var tAtendimento = new Intervalo(double.Parse(valores[5]), double.Parse(valores[6]));
+                                    filas.Add(new Fila(valores[0], Convert.ToInt32(valores[1]), Convert.ToInt32(valores[2]), tChegada, tAtendimento));
+                                }
+                                // Entrada inválida
+                                else
+                                {
+                                    throw new ArgumentException("Ocorreu um erro ao processar o seu arquivo na tag FILAS.");
+                                }
+                                filas[filas.Count - 1].PosicaoNoArray = posicaoNoArray++;
+                            }
+                        }
+                        // PRIMEIRA_CHEGADA
+                        else if (linha.StartsWith("PRIMEIRA_CHEGADA"))
+                        {
+                            if (filas.Count == 0)
+                            {
+                                throw new ArgumentException("Você não definiu nenhum valor para a tag PRIMEIRA_CHEGADA.");
+                            }
+                            while (true)
+                            {
+                                string[] valores = leitor.ReadLine().Split(' ');
 
-            //                // Linha em branco, passar para proxima entrada
-            //                if (values.length == 0 || "".equals(values[0]))
-            //                {
-            //                    break;
-            //                }
-            //                // Quatro valores, fila INFINITA que NAO possui entrada externa
-            //                else if (values.length == 4)
-            //                {
-            //                    queues.add(new Queue(values[0], Integer.parseInt(values[1]), Simulator.INFINITE_QUEUE_SIZE,
-            //                            Double.parseDouble(values[2]), Double.parseDouble(values[3])));
-            //                }
-            //                // Cinco valores, fila que NAO possui entrada externa
-            //                else if (values.length == 5)
-            //                {
-            //                    queues.add(new Queue(values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]),
-            //                            Double.parseDouble(values[3]), Double.parseDouble(values[4])));
-            //                }
-            //                // Seis valores, fila INFINITA que possui entrada externa
-            //                else if (values.length == 6)
-            //                {
-            //                    queues.add(new Queue(values[0], Integer.parseInt(values[1]), Simulator.INFINITE_QUEUE_SIZE,
-            //                            Double.parseDouble(values[2]), Double.parseDouble(values[3]),
-            //                            Double.parseDouble(values[4]), Double.parseDouble(values[5])));
-            //                }
-            //                // Sete valores, fila que possui entrada externa
-            //                else if (values.length == 7)
-            //                {
-            //                    queues.add(new Queue(values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]),
-            //                            Double.parseDouble(values[3]), Double.parseDouble(values[4]),
-            //                            Double.parseDouble(values[5]), Double.parseDouble(values[6])));
-            //                }
-            //                // Entrada inválida
-            //                else
-            //                {
-            //                    throw new IllegalArgumentException("Linha inválida para a entrada QUEUES!\n"
-            //                            + "Linha começa com " + values[0] + "...");
-            //                }
-            //                queues.get(queues.size() - 1).setPositionInArray(positionInArray++);
-            //            }
-            //        }
-            //        // FIRST_ARRIVAL
-            //        else if (line.startsWith("FIRST_ARRIVAL"))
-            //        {
-            //            if (queues.isEmpty())
-            //            {
-            //                throw new IllegalArgumentException(
-            //                        "As entradas FIRST_ARRIVAL devem vir depois das entradas QUEUES!");
-            //            }
-            //            while (reader.ready())
-            //            {
-            //                String[] values = reader.readLine().split(" ");
+                                // Linha em branco, passar para proxima entrada
+                                if (valores.Length == 0 || "".Equals(valores[0]))
+                                {
+                                    break;
+                                }
+                                // Dois valores, nome da fila e primeira chegada
+                                else if (valores.Length == 2)
+                                {
+                                    foreach (Fila fila in filas)
+                                    {
+                                        if (valores[0].Equals(fila.Nome))
+                                        {
+                                            fila.PrimeiraChegada = double.Parse(valores[1]);
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    throw new ArgumentException("Ocorreu um erro ao processar o seu arquivo na tag PRIMEIRA_CHEGADA.");
+                                }
+                            }
+                        }
+                        // REDE
+                        else if (linha.StartsWith("REDE"))
+                        {
+                            if (filas.Count == 0)
+                            {
+                                throw new ArgumentException("Você não definiu nenhum valor para a tag REDE.");
+                            }
+                            while (true)
+                            {
+                                string[] valores = leitor.ReadLine().Split(' ');
 
-            //                // Linha em branco, passar para proxima entrada
-            //                if (values.length == 0 || "".equals(values[0]))
-            //                {
-            //                    break;
-            //                }
-            //                // Dois valores, nome da fila e primeira chegada
-            //                else if (values.length == 2)
-            //                {
-            //                    for (Queue q : queues)
-            //                    {
-            //                        if (values[0].equals(q.getName()))
-            //                        {
-            //                            q.setFirstArrival(Double.parseDouble(values[1]));
-            //                            break;
-            //                        }
-            //                    }
-            //                }
-            //                // Entrada inválida
-            //                else
-            //                {
-            //                    throw new IllegalArgumentException("Linha inválida para a entrada FIRST_ARRIVAL!\n"
-            //                            + "Linha começa com " + values[0] + "...");
-            //                }
-            //            }
-            //        }
-            //        // NETWORK
-            //        else if (line.startsWith("NETWORK"))
-            //        {
-            //            if (queues.isEmpty())
-            //            {
-            //                throw new IllegalArgumentException("As entradas NETWORK devem vir depois das entradas QUEUES!");
-            //            }
-            //            while (reader.ready())
-            //            {
-            //                String[] values = reader.readLine().split(" ");
+                                if (valores.Length == 0 || "".Equals(valores[0]))
+                                {
+                                    break;
+                                }
+                                // Tres valores, nome fila origem, nome fila destino e probabilidade
+                                else if (valores.Length == 3)
+                                {
+                                    foreach (Fila fila in filas)
+                                    {
+                                        if (valores[0].Equals(fila.Nome))
+                                        {
+                                            if (fila.AdicionaDestino(valores[1], double.Parse(valores[2])))
+                                                break;
+                                            else
+                                                throw new ArgumentException("Soma das probabilidades para " + valores[0] + " é maior que 1.0.");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    throw new ArgumentException("Ocorreu um erro ao processar o seu arquivo na tag REDE.");
+                                }
+                            }
+                        }
+                        // NUMERO_DE_ALEATORIOS_POR_SEMENTE
+                        else if (linha.StartsWith("NUMERO_DE_ALEATORIOS_POR_SEMENTE"))
+                        {
+                            string[] values = leitor.ReadLine().Split(' ');
+                            Simulador.NUMEROS_ALEATORIOS = Convert.ToInt32(values[0]);
+                        }
+                        // NUMERO_DE_SEMENTES
+                        else if (linha.StartsWith("NUMERO_DE_SEMENTES"))
+                        {
+                            string[] values = leitor.ReadLine().Split(' ');
+                            Simulador.EXECUCOES = Convert.ToInt32(values[0]);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.ReadKey();
+                return;
+            }
 
-            //                // Linha em branco, passar para proxima entrada
-            //                if (values.length == 0 || "".equals(values[0]))
-            //                {
-            //                    break;
-            //                }
-            //                // Tres valores, nome fila origem, nome fila destino e probabilidade
-            //                else if (values.length == 3)
-            //                {
-            //                    for (Queue q : queues)
-            //                    {
-            //                        if (values[0].equals(q.getName()))
-            //                        {
-            //                            if (q.addDestiny(values[1], Double.parseDouble(values[2])))
-            //                                break;
-            //                            else
-            //                                throw new IllegalArgumentException(
-            //                                        "Soma das probabilidades para " + values[0] + " é maior que 1.0!");
-            //                        }
-            //                    }
-            //                }
-            //                // Entrada inválida
-            //                else
-            //                {
-            //                    throw new IllegalArgumentException("Linha inválida para a entrada NETWORK!\n"
-            //                            + "Linha começa com " + values[0] + "...");
-            //                }
-            //            }
-            //        }
-            //        // RAND_PER_SEED
-            //        else if (line.startsWith("RAND_PER_SEED"))
-            //        {
-            //            String[] values = reader.readLine().split(" ");
-            //            Simulator.RANDS_NUM = Integer.parseInt(values[0]);
-            //        }
-            //        // SEEDS
-            //        else if (line.startsWith("SEEDS"))
-            //        {
-
-            //            Simulator.EXECUTIONS = 0;
-
-            //            while (reader.ready())
-            //            {
-            //                String[] values = reader.readLine().split(" ");
-
-            //                // Linha em branco, passar para proxima entrada
-            //                if (values.length == 0 || "".equals(values[0]))
-            //                {
-            //                    break;
-            //                }
-            //                // Um valor, semente a ser usada na execucao
-            //                else if (values.length == 1)
-            //                {
-            //                    Simulator.SEEDS.add(Integer.parseInt(values[0]));
-            //                    Simulator.EXECUTIONS += 1;
-            //                }
-            //                // Entrada inválida
-            //                else
-            //                {
-            //                    throw new IllegalArgumentException("Linha inválida para a entrada RAND_PER_SEED!\n"
-            //                            + "Linha começa com " + values[0] + "...");
-            //                }
-            //            }
-            //        }
-            //        // NUMBER_RANDOM_SEEDS
-            //        else if (line.startsWith("NUMBER_RANDOM_SEEDS"))
-            //        {
-            //            String[] values = reader.readLine().split(" ");
-            //            Simulator.EXECUTIONS = Integer.parseInt(values[0]);
-            //        }
-            //    }
-
-            //} catch (IllegalArgumentException e)
-            //{
-            //    System.out.println("\n" + e.getMessage() + "\n");
-            //}
-            //catch (MalformedInputException e)
-            //{
-            //    System.out.println("\nArquivo não pode conter acentos ou caracteres especiais!\n");
-            //}
-            //catch (Exception e)
-            //{
-            //    System.out.println("\nArquivo " + args[0] + " não encontrado!\n");
-            //}
-
-            //// Conferindo dados
-            ////for (Queue q : queues) {
-            ////	System.out.println(q);
-            ////}
-
-            //// RODAR SIMULACAOES
-            //Simulator.run(queues);
+            Simulador s = new Simulador();
+            s.Executar(filas);
+            Console.ReadKey();
         }
     }
 }

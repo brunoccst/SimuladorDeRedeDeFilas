@@ -5,3 +5,12 @@ C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\Microsoft.
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.dll
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.pdb
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\UnitTests.dll
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\UnitTests.pdb
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\bin\Debug\pt-BR\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.csprojAssemblyReference.cache
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.dll
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\UnitTests\obj\Debug\UnitTests.pdb

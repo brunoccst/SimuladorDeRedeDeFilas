@@ -12,10 +12,10 @@ namespace SimuladorDeRedeDeFilas.Modelos
     /// </summary>
     public class Simulador
     {
-        public const int EXECUCOES = 5;
-        public const int NUMEROS_ALEATORIOS = 100000;
+        public static int EXECUCOES = 5;
+        public static int NUMEROS_ALEATORIOS = 100000;
         public static List<int> SEMENTES = new List<int>();
-        public const int TAMANHO_FILA_INFINITA = 100;
+        public static int TAMANHO_DA_FILA_INFINITA = 100;
 
         private double tempoPassado { get; set; }
         private double ultimoEvento { get; set; }

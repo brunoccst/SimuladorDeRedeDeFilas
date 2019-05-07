@@ -29,15 +29,6 @@ namespace SimuladorDeRedeDeFilas.Modelos
         /// <exception cref="ArgumentException">Se o tempo mínimo for maior que o máximo, ou se um dos dois parâmetros for menor que zero.</exception>
         public Intervalo(double minimo, double maximo)
         {
-            if (minimo > maximo)
-                throw new ArgumentException("O tempo mínimo deve ser menor ou igual ao tempo máximo.", nameof(minimo));
-
-            if (minimo < 0)
-                throw new ArgumentException("O tempo mínimo deve ser maior ou igual a zero.", nameof(minimo));
-
-            if (maximo < 0)
-                throw new ArgumentException("O tempo máximo deve ser maior ou igual a zero.", nameof(maximo));
-
             Minimo = minimo;
             Maximo = maximo;
         }

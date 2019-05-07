@@ -6,3 +6,11 @@ C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Deb
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csproj.GenerateResource.Cache
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.exe
 C:\Users\bco\Desktop\PUCRS\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.pdb
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\bin\Debug\SimuladorDeRedeDeFilas.exe
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\bin\Debug\SimuladorDeRedeDeFilas.pdb
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csprojAssemblyReference.cache
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.Properties.Resources.resources
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csproj.GenerateResource.cache
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.csproj.CoreCompileInputs.cache
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.exe
+H:\Área de Trabalho\SimuladorDeRedeDeFilas\SimuladorDeRedeDeFilas\obj\Debug\SimuladorDeRedeDeFilas.pdb
